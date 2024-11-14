@@ -4,6 +4,11 @@ import { ThemeProvider } from '@/components/theme-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
+export const dynamic = 'force-dynamic'
+export const runtime = 'edge'
+export const preferredRegion = 'auto'
+export const revalidate = 0
+
 export const metadata = {
   title: 'FLICK',
   description: 'Video messaging platform',
@@ -16,19 +21,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preload" href="/globals.css" as="style" />
-      </head>
-      <body className={`${inter.className} min-h-screen bg-background`}>
+      <body className={inter.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <main className="relative flex min-h-screen flex-col">
-            {children}
-          </main>
+          {children}
         </ThemeProvider>
       </body>
     </html>
