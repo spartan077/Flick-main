@@ -3,7 +3,10 @@ const nextConfig = {
   images: {
     domains: ['nafuouqgyqhcisrlnpru.supabase.co'],
   },
-  postcss: true,
+  experimental: {
+    serverActions: true,
+  },
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
 }
 
 module.exports = nextConfig
