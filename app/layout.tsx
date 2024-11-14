@@ -1,7 +1,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
-import { headers } from 'next/headers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -10,28 +9,26 @@ export const metadata = {
   description: 'Video messaging platform',
 }
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  // Force dynamic rendering by reading headers
-  headers()
-  
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <head>
+        <link rel="preload" href="/globals.css" as="style" />
+      </head>
+      <body className={`${inter.className} min-h-screen bg-background`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <main className="relative flex min-h-screen flex-col">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
