@@ -10,20 +10,22 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  // Protected routes
-  if (
-    !session &&
-    (req.nextUrl.pathname.startsWith('/record') ||
-      req.nextUrl.pathname.startsWith('/messages') ||
-      req.nextUrl.pathname.startsWith('/dashboard'))
-  ) {
-    return NextResponse.redirect(new URL('/auth', req.url));
-  }
-
-  // Redirect to dashboard if logged in and trying to access auth page
-  if (session && req.nextUrl.pathname.startsWith('/auth')) {
-    return NextResponse.redirect(new URL('/dashboard', req.url));
+  if (!session && req.nextUrl.pathname.startsWith('/protected')) {
+    return NextResponse.redirect(new URL('/auth/login', req.url));
   }
 
   return res;
 }
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder
+     */
+    '/((?!_next/static|_next/image|favicon.ico|public).*)',
+  ],
+};

@@ -1,36 +1,20 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/theme-provider';
-import { Toaster } from '@/components/ui/toaster';
-import { Header } from '@/components/header';
+export const dynamic = 'force-dynamic'
 
-const inter = Inter({ subsets: ['latin'] });
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'VideoMate - Video Messaging Platform',
-  description: 'Record and share video messages effortlessly',
-};
+  title: 'FLICK',
+  description: 'Video messaging platform',
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          <main className="min-h-screen bg-background">{children}</main>
-          <Toaster />
-        </ThemeProvider>
-      </body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
-  );
+  )
 }
